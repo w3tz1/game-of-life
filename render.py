@@ -1,5 +1,3 @@
-# import game_of_life as gol
-# import time
 import tkinter as tk
 
 rows, cols = 0, 0
@@ -14,6 +12,7 @@ def load_board_state(path):
     state = [[int(element) for element in row] for row in state]
     rows = len(state)
     cols = len(state[0])
+    return state
 
 
 def draw_grid(canvas):
@@ -27,11 +26,32 @@ def draw_grid(canvas):
         canvas.create_line(0, y, (cols * side_length), y, fill='black')
 
 
-def draw_state(canvas):
-    pass
+def draw_state(canvas, state):
+    for i in range(len(state[0])):
+        x = i * side_length
+        for j in range(len(state)):
+            y = j * side_length
+            if state[j][i] == 1:
+                canvas.create_rectangle(
+                    x, y, x + side_length, y + side_length, fill='black')
+    canvas.pack()
 
 
-def run():
+def print_state(state):
+    # os.system('cls')
+    print('-'*(len(state[0]) + 2))
+    for row in state:
+        print('|', end='')
+        for element in row:
+            print('#', end='') if element == 1 else print(' ', end='')
+        print('|')
+    print('-'*(len(state[0]) + 2))
+
+
+if __name__ == '__main__':
+    state = load_board_state('shapes/gosper_glider_gun.txt')
+    print(f'rows={rows}, cols={cols}')
+    print_state(state)
     window = tk.Tk()
 
     canvas_width = cols * side_length
@@ -41,10 +61,6 @@ def run():
     canvas.pack()
 
     draw_grid(canvas)
+    draw_state(canvas, state)
 
     window.mainloop()
-
-
-if __name__ == '__main__':
-    load_board_state('shapes/gosper_glider_gun.txt')
-    run()

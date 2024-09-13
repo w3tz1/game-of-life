@@ -1,6 +1,5 @@
 import os
 import random
-import time
 
 
 class game_of_life:
@@ -81,11 +80,3 @@ class game_of_life:
             if neighbors == 3:
                 result = 1
         return result
-
-
-os.system('cls')
-gol = game_of_life(file='shapes/gosper_glider_gun.txt')
-for _ in range(100):
-    gol.render()
-    time.sleep(0.1)
-    gol.get_next_state()
