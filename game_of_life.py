@@ -2,7 +2,7 @@ import os
 import random
 
 
-class game_of_life:
+class game:
     def __init__(self, width=None, height=None, file=None):
         if width is not None and height is not None:
             self.width = width
